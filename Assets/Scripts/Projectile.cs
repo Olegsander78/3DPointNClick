@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float lifetime = 5f;
+    [SerializeField] private int damage;
+
+    private GameObject target;
+    private Character owner;
+
+    private Rigidbody rig;
+
+    private void Start()
     {
-        
+        rig = GetComponent<Rigidbody>();
+        rig.velocity = transform.forward * moveSpeed;
+
+        Destroy(gameObject, lifetime);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Setup(Character character)
     {
-        
+        owner = character;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Character hit = other.GetComponent<Character>();
+
+        if(hit!=owner&& hit != null)
+        {
+            hit.TakeDamage(damage);
+            Destroy(gameObject);
+        }
     }
 }

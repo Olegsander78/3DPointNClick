@@ -95,6 +95,7 @@ public class Enemy : Character
     }
     void AttackTarget()
     {
-
+        GameObject proj = Instantiate(attackPrefab, transform.position + Vector3.up, Quaternion.LookRotation(target.transform.position - transform.position));
+        proj.GetComponent<Projectile>().Setup(this);
     }
 }
