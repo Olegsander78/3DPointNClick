@@ -17,10 +17,10 @@ public class CharacterController : MonoBehaviour
     }
     private void Update()
     {
-        if (moveTarget != null && Time.time - lastMoveToUpdate < moveToUpdateRate)
+        if (moveTarget != null && Time.time - lastMoveToUpdate > moveToUpdateRate)
         {
             lastMoveToUpdate = Time.time;
-            MoveToposition(moveTarget.position);
+            MoveToPosition(moveTarget.position);
         }
     }
     public void LookTowards(Vector3 direction)
@@ -31,7 +31,7 @@ public class CharacterController : MonoBehaviour
     {
         moveTarget = target;
     }
-    public void MoveToposition(Vector3 position)
+    public void MoveToPosition(Vector3 position)
     {
         agent.isStopped = false;
         agent.SetDestination(position);
